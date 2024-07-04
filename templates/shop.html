@@ -1,0 +1,131 @@
+{% extends 'master.html' %}
+{% load static %}
+{% block content %}
+	
+	<section id="advertisement">
+		<div class="container">
+			<img src="{% static 'images/shop/advertisement.jpg' %}" alt="" />
+		</div>
+	</section>
+	
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-3">
+					<div class="left-sidebar">
+						<h2>Category</h2>
+						<div class="panel-group category-products" id="accordian"><!--category-productsr-->
+
+							{% for cat in category %}
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordian" href="#{{cat.id}}">
+											<span class="badge pull-right"><i class="fa fa-plus"></i></span>
+											{{cat.name}}
+										</a>
+									</h4>
+								</div>
+								<div id="{{cat.id}}" class="panel-collapse collapse">
+									<div class="panel-body">
+										<ul>
+											{% for i in cat.sub_category_set.all %}
+											<li><a href="{% url 'searchcate' i.id %}">{{i.name}}</a></li>
+											{% endfor %}
+										</ul>
+									</div>
+								</div>
+							</div>
+							{% endfor %}
+						</div><!--/category-productsr-->
+					
+						<div class="brands_products"><!--brands_products-->
+							<h2>Brands</h2>
+							<div class="brands-name">
+								<ul class="nav nav-pills nav-stacked">
+									{% for cl in colors %}
+									<li><b><a href="{% url 'searchcolor' cl.id %}"> <span class="pull-right"></span>{{cl.color}}</a></b></li>
+									{% endfor %}
+								</ul>
+							</div>
+						</div><!--/brands_products-->
+						
+						<div class="price-range"><!--price-range-->
+							<h2>Price Range</h2>
+							<div class="well">
+								 <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="1000" data-slider-step="5" data-slider-value="[0,1000]" id="sl2" ><br />
+								 <b>$ 0</b> <b class="pull-right">$ 1000</b>
+							</div>
+						</div><!--/price-range-->
+						
+						<div class="shipping text-center"><!--shipping-->
+							<img src="{% static 'images/home/shipping.jpg' %}" alt="" />
+						</div><!--/shipping-->
+						
+					</div>
+				</div>
+				
+				<div class="col-sm-9 padding-right">
+					<div class="features_items"><!--features_items-->
+						<h2 class="title text-center">Features Items</h2>
+
+						{% for prod in product %}
+						<div class="col-sm-4">
+							<div class="product-image-wrapper">
+								<div class="single-products">
+										<div class="productinfo text-center">
+											<img src="{{prod.image.url}}" height="320px;" alt="" />
+											<h2>${{prod.price}}</h2>
+											<p>Name - {{prod.name}}</p>
+											<p>Color - {{prod.color}}</p>
+											<a href="{% url 'cart_add' prod.id %}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+										</div>
+										<div class="product-overlay">
+											<div class="overlay-content">
+												<h2>${{prod.price}}</h2>
+												<p>{{prod.name}}</p>
+												<a href="{% url 'cart_add' prod.id %}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											</div>
+										</div>
+								</div>
+								<div class="choose">
+									<ul class="nav nav-pills nav-justified">
+										<li><a href="{{prod.id}}"><i class="fa fa-plus-square"></i>View Detail</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+
+						<nav aria-label="...">
+							<ul class="pagination">
+								{% if page_obj.has_previous %}
+								<li class="page-item ">
+								  <a class="page-link" href="?page=1">First</a>
+								</li>
+								<li class="page-item ">
+								  <a class="page-link" href="?page={{page_obj.previous_page_number}}">Previous</a>
+								</li>
+								{% endif %}
+
+								{% for n in totalPagelist %}
+								<li class="page-item"><a class="page-link" href="?page={{n}}">{{n}}</a></li>
+								{% endfor %}
+
+								{% if page_obj.has_next %}
+								<li class="page-item">
+								  <a class="page-link" href="?page={{page_obj.next_page_number}}">Next</a>
+								</li>
+								<li class="page-item">
+								  <a class="page-link" href="?page={{lastpage}}">Last</a>
+								</li>
+								{% endif %}
+						    </ul>
+						</nav>
+					</div><!--features_items-->
+				</div>
+			</div>
+		</div>
+	</section>
+	
+{% endblock %}

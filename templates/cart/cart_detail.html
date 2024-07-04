@@ -1,0 +1,89 @@
+{% extends 'master.html' %}
+{% load static %}
+{% load cart_tag %}
+{% block content %}
+
+<section id="cart_items">
+    <div class="container">
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li><a href="{% url 'selindex' %}">Home</a></li>
+                <li class="active">Shopping Cart</li>
+            </ol>
+        </div>
+        <div class="table-responsive cart_info">
+            <table class="table table-condensed">
+                <thead>
+                <tr class="cart_menu">
+                    <td class="image">Item</td>
+                    <td class="description">Name</td>
+                    <td class="price">Price</td>
+                    <td class="quantity">Quantity</td>
+                    <td class="total">Total</td>
+                    <td class="total">Delete</td>
+                    <td></td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for key,value in request.session.cart.items %}
+                <tr>
+                    <td class="cart_product">
+                        <a href=""><img src="{{value.image}}" height="200rem;" width="180rem" alt=""></a>
+                    </td>
+                    <td class="cart_description">
+                        <h4><a href="">{{value.name|truncatewords:3}}</a></h4>
+                        <p>Web ID: 1089772</p>
+                    </td>
+                    <td class="cart_price">
+                        <p>${{value.price}}</p>
+                    </td>
+                    <td class="cart_quantity">
+                        <div class="cart_quantity_button">
+                            <a class="cart_quantity_up" href="/seller/cart/item_increment/{{value.product_id}}/"> + </a>
+                            <input class="cart_quantity_input" type="text" name="quantity" value="{{value.quantity}}"
+                                   autocomplete="off" size="2">
+                            <a class="cart_quantity_down" {% if value.quantity == 1 %} disabled href=""{% endif %}  href="/seller/cart/item_decrement/{{value.product_id}}/">
+                                - </a>
+                        </div>
+                    </td>
+                    <td class="cart_total">
+                        <p class="cart_total_price">${{ value.price|multiply:value.quantity }}</p>
+                    </td>
+                    <td class="cart_delete">
+                        <a class="cart_quantity_delete" href="{% url 'item_clear' key %}"><i
+                                class="fa fa-times"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <td>
+
+                </td>
+                <td>
+
+                </td>
+                <td>
+                    <hr>
+                    <h4 style="text-align:center;">Sub Total&nbsp;&nbsp;&nbsp; : </h4>
+                </td>
+                <td>
+
+                </td>
+                <td>
+                    <hr>
+                    <h3 style="text-align:center;">{{cart_total_amount}}</h3>
+                </td>
+                </tfoot>
+            </table>
+        </div>
+        <a href="{% url 'checkout' %}">
+            <button type="submit" class="btn btn-primary" style="float:right;">Checkout</button>
+        </a>
+    </div>
+</section> <!--/#cart_items-->
+<br>
+<br>
+
+
+{% endblock %}

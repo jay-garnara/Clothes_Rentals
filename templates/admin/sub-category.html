@@ -1,0 +1,32 @@
+{% extends 'admin/master.html' %}
+{% block content %}
+{% load static %}
+
+<div class="container mt-5">
+    <form class="col-6 mx-auto card p-3 shadow-lg" method="post">
+        {% csrf_token %}
+        <h2>Add Sub-Category</h2>
+        <hr>
+        <div class="col">
+            <div class="form-group">
+                <label for="input-1">Category</label><br>
+                <br>
+                <select class="form-select form-control" name="category" aria-label="Default select example">
+                    {% for i in cate %}
+                    <option value="{{i.id}}">{{i.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <br>
+            <div class="col-sm-12 mt-2">
+                <input type="text" class="form-control" name="name" placeholder="sub-category name">
+            </div>
+            <br>
+            <div class="btn">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

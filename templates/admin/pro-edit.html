@@ -1,0 +1,78 @@
+{% extends 'admin/master.html' %}
+{% block content %}
+{% load static %}
+
+<div class="container mt-5">
+    <form class="col-6 mx-auto card p-3 shadow-lg" method="post" action="/adminapp/pro-update/{{product.id}}/" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h2>Product Update Form</h2>
+        <hr>
+        <div class="col">
+            <div class="form-group">
+                <label for="input-1">Category</label><br>
+                <select class="form-select form-control" name="category" value="{{product.category}}" aria-label="Default select example">
+                    {% for i in cate %}
+                    <option value="{{i.id}}">{{i.name}}</option>
+                    {% endfor %}
+                </select>
+            </div><br>
+            <div class="form-group">
+                <label for="input-1">Sub Category</label><br>
+                <select class="form-select form-control" name="sub_category" value="{{product.sub_category}}" aria-label="Default select example">
+                    {% for j in sub_cate %}
+                    <option value="{{j.id}}">{{j.name}}</option>
+                    {% endfor %}
+                </select>
+            </div><br>
+            <div class="form-group">
+                <label for="input-1">Color</label><br>
+                <select class="form-select form-control" name="color" value="{{product.color}}" aria-label="Default select example">
+                    {% for cl in colors %}
+                    <option value="{{cl.id}}">{{cl.color}}</option>
+                    {% endfor %}
+                </select>
+            </div><br>
+            <div class="form-group">
+                {% if product.image %}
+                <img src="{{product.image.url}}" alt="image here" height="100px" class="prod-size">
+                {% endif %}
+                <br>
+                <label for="formFile" class="form-label">Image</label>
+                <input class="form-control" type="file" name="image" id="formFile">
+            </div><br>
+            <div class="col-sm-12 mt-2">
+                <input type="text" class="form-control" name="name" value="{{product.name}}" placeholder="Name">
+            </div>
+            <br>
+            <div class="col-sm-12">
+                <input type="text" class="form-control" name="price" value="{{product.price}}" placeholder="Price">
+            </div>
+            <br>
+            <div class="col-sm-12">
+                <label for="input-1">Availability</label><br>
+                <select class="form-select form-control" name="availability" value="{{product.availability}}" aria-label="Default select example">
+                    <option value="In Stock" selected="">In Stock</option>
+                    <option value="Out of Stock">Out of Stock</option>
+                </select>
+            </div>
+            <br>
+            <div class="col-sm-12">
+                <label for="input-1">Condition</label><br>
+                <select class="form-select form-control" name="condition" value="{{product.condition}}" aria-label="Default select example">
+                    <option value="New" selected="">New</option>
+                    <option value="Old">Old</option>
+                </select>
+            </div>
+            <br>
+            <div class="col-sm-12">
+                <input type="text" class="form-control" name="information" value="{{product.information}}" placeholder="Information">
+            </div>
+            <br>
+            <div class="btn">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

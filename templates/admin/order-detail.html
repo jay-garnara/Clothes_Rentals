@@ -1,0 +1,49 @@
+{% extends 'admin/master.html' %}
+{% block content %}
+{% load static %}
+
+
+<div class="container mt-4">
+    <h5 class="card-title">User Order Detail</h5>
+    <table class="table table-bordered">
+        <thead style="text-align:center;">
+        <tr>
+            <th scope="col">Sr No</th>
+            <th scope="col">Date</th>
+            <th scope="col">Address</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Country</th>
+            <th scope="col">State</th>
+            <th scope="col">Zip</th>
+            <th scope="col">Name</th>
+            <th scope="col">Image</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
+            <th scope="col">Total</th>
+        </tr>
+        </thead>
+        <tbody style="text-align:center;">
+        {% for dtl in detail %}
+        <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{dtl.order.date}}</td>
+            <td>{{dtl.order.address}}</td>
+            <td>{{dtl.order.phone}}</td>
+            <td>{{dtl.order.country}}</td>
+            <td>{{dtl.order.state}}</td>
+            <td>{{dtl.order.zip}}</td>
+            <td>{{dtl.product.name}}</td>
+            <td>
+                <img src="{{dtl.product.image.url}}" style="height:105px; width:100px; display:flex; justify-content:center;" class="rounded mx-auto d-block">
+            </td>
+            <td>{{dtl.quantity}}</td>
+            <td>{{dtl.price}}</td>
+            <td>{{dtl.total}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}

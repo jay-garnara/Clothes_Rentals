@@ -1,0 +1,36 @@
+{% extends 'admin/master.html' %}
+{% block content %}
+{% load static %}
+
+
+<div class="container mt-4">
+    <h5 class="card-title">User Order</h5>
+    <table class="table table-bordered">
+        <thead style="text-align:center;">
+        <tr>
+            <th scope="col">Sr No</th>
+            <th scope="col">User</th>
+            <th scope="col">Order By</th>
+            <th scope="col">E-mail</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody style="text-align:center;">
+        {% for z in orders %}
+        <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{z.user.username}}</td>
+            <td>{{z.user.first_name}}</td>
+            <td>{{z.user.email}}</td>
+            <td>
+                <a class="btn btn-outline-primary" href="{% url 'order-detail' %}">Info</a>
+                <button type="button" class="btn btn-outline-primary"><a href="{% url 'order-delete' z.id %}">Delete</a></button>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}

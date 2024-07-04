@@ -1,0 +1,64 @@
+{% extends 'master.html' %}
+{% load static %}
+{% load cart_tag %}
+{% block content %}
+
+
+    <section id="cart_items">
+        <div class="container">
+            <div class="breadcrumbs">
+                <ol class="breadcrumb">
+                    <li><a href="{% url 'selindex' %}">Home</a></li>
+                    <li class="active">Your Order</li>
+                </ol>
+            </div>
+            <h3 class="cart-page-title">Your Order</h3>
+            <br>
+            <div class="table-responsive cart_info">
+                <table class="table table-condensed">
+                    <thead>
+                    <tr class="cart_menu">
+                        <td class="image">Item</td>
+                        <td class="description" style="margin-left: 25px; text-align: center;">Name</td>
+                        <td class="price">Price</td>
+                        <td class="quantity">Quantity</td>
+                        <td class="total">Total</td>
+                        <td class="status">Status</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for key,value in request.session.cart.items %}
+                    <tr>
+                        <td class="cart_product">
+                            <a href=""><img src="{{value.image}}" height="200rem;" width="180rem" alt=""></a>
+                        </td>
+                        <td class="cart_description">
+                            <h4 style="margin-left: 25px;"><a href="">{{value.name}}</a></h4>
+                            <p style="margin-left: 25px;">Web ID: 1089772</p>
+                        </td>
+                        <td class="cart_price">
+                            <p>${{value.price}}</p>
+                        </td>
+                        <td class="cart_quantity">
+                            <div class="cart_quantity">
+                                <a>{{value.quantity}}</a>
+                            </div>
+                        </td>
+                        <td class="cart_total">
+                            <p class="cart_total_price">${{ value.price|multiply:value.quantity }}</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <a href="#">
+                <button type="submit" class="btn btn-primary" style="float:right;">Purchase</button>
+            </a>
+        </div>
+    </section> <!--/#cart_items-->
+    <br>
+    <br>
+
+
+    {% endblock %}

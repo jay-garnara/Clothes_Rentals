@@ -1,0 +1,47 @@
+{% extends 'admin/master.html' %}
+{% block content %}
+{% load static %}
+
+<div class="container mt-4 d-flex justify-content-center align-items-center">
+    <table class="table table-bordered" style="width:100%;">
+        <thead style="text-align:center;">
+        <tr>
+            <th scope="col">Sr No</th>
+            <th scope="col">Category</th>
+            <th scope="col">Sub Category</th>
+            <th scope="col">Color</th>
+            <th scope="col">Image</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Availability</th>
+            <th scope="col">Condition</th>
+            <th scope="col">Information</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody style="text-align:center;">
+        {% for x in product %}
+        <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{x.category}}</td>
+            <td>{{x.sub_category}}</td>
+            <td>{{x.color}}</td>
+            <td>
+                <img src="/media/{{x.image}}" style="height:105px; width:100px; display:flex; justify-content:center;" class="rounded mx-auto d-block">
+            </td>
+            <td>{{x.name | truncatewords:2}}</td>
+            <td>{{x.price}}</td>
+            <td>{{x.availability}}</td>
+            <td>{{x.condition}}</td>
+            <td>{{x.information}}</td>
+            <td>
+                <button type="button" class="btn btn-outline-primary"><a href="{% url 'pro-delete' x.id %}">Delete</a></button>
+                <button type="button" class="btn btn-outline-primary"><a href="{% url 'pro-edit' x.id %}">Edit</a></button>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
